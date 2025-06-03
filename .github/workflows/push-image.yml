@@ -36,9 +36,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      
+      - name: To lower
+        run: |
+          echo "owner=${GITHUB_ACTOR,,}" >> ${GITHUB_ENV}
       - name: Tag local image
-        run: docker tag spring-petclinic:3.4.0-SNAPSHOT ghcr.io/${{ github.repository_owner | toLower }}/spring-petclinic:3.4.0-SNAPSHOT
+        run: | 
+          docker tag spring-petclinic:3.4.0-SNAPSHOT ghcr.io/${owner}/spring-petclinic:3.4.0-SNAPSHOT
 
       - name: Push Docker image
-        run: docker push ghcr.io/${{ github.repository_owner | toLower }}/spring-petclinic:3.4.0-SNAPSHOT
+        run: docker push ghcr.io/${owner}/spring-petclinic:3.4.0-SNAPSHOT
