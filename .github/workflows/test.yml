@@ -11,8 +11,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Run tests
-        run: ./mvnw test
       - name: Cache Maven dependencies
         uses: actions/cache@v4
         with:
@@ -20,3 +18,5 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+      - name: Run tests
+        run: ./mvnw test
